@@ -8,20 +8,24 @@ import About from '@/components/About';
 import Location from '@/components/Location';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
+import Background3D from '@/components/Background3D';
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      <Background3D />
       <Navbar />
-      <Hero />
-      <WhatWeOffer />
-      <Studios />
-      <Services />
-      <Testimonials />
-      <About />
-      <Location />
-      <Contact />
-      <Footer />
+      <div className="relative z-10">
+        <Hero />
+        <WhatWeOffer />
+        <Studios />
+        <Services />
+        <Testimonials />
+        <About />
+        <Location />
+        <Contact />
+        <Footer />
+      </div>
     </div>
   );
 };
