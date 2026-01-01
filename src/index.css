@@ -1,0 +1,286 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,500;6..12,600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Chamundi Hill Palace Ayurvedic Resort Design System */
+
+@layer base {
+  :root {
+    /* Core palette - Earthy & Spiritual */
+    --background: 45 30% 97%;
+    --foreground: 30 20% 15%;
+
+    --card: 45 25% 95%;
+    --card-foreground: 30 20% 15%;
+
+    --popover: 45 30% 97%;
+    --popover-foreground: 30 20% 15%;
+
+    /* Sage Green - Primary */
+    --primary: 150 25% 32%;
+    --primary-foreground: 45 30% 97%;
+
+    /* Warm Sand - Secondary */
+    --secondary: 35 30% 88%;
+    --secondary-foreground: 30 20% 20%;
+
+    /* Muted Sage */
+    --muted: 150 15% 90%;
+    --muted-foreground: 150 10% 40%;
+
+    /* Terracotta Accent */
+    --accent: 18 55% 55%;
+    --accent-foreground: 45 30% 97%;
+
+    /* Gold Highlight */
+    --gold: 42 75% 55%;
+    --gold-foreground: 30 20% 15%;
+
+    /* Deep Forest */
+    --forest: 160 35% 18%;
+    --forest-foreground: 45 30% 97%;
+
+    /* Cream */
+    --cream: 45 40% 94%;
+
+    --destructive: 0 65% 50%;
+    --destructive-foreground: 45 30% 97%;
+
+    --border: 35 20% 85%;
+    --input: 35 20% 85%;
+    --ring: 150 25% 32%;
+
+    --radius: 0.75rem;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(180deg, 
+      hsl(150 25% 32% / 0.1) 0%, 
+      hsl(45 30% 97% / 0.95) 100%);
+    --gradient-card: linear-gradient(135deg, 
+      hsl(45 25% 95%) 0%, 
+      hsl(150 15% 92%) 100%);
+    --gradient-gold: linear-gradient(135deg, 
+      hsl(42 75% 55%) 0%, 
+      hsl(35 70% 45%) 100%);
+
+    /* Shadows */
+    --shadow-soft: 0 4px 20px hsl(150 25% 32% / 0.08);
+    --shadow-elevated: 0 8px 40px hsl(150 25% 32% / 0.12);
+    --shadow-glow: 0 0 60px hsl(42 75% 55% / 0.3);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 160 35% 8%;
+    --foreground: 45 30% 92%;
+
+    --card: 160 30% 12%;
+    --card-foreground: 45 30% 92%;
+
+    --popover: 160 35% 8%;
+    --popover-foreground: 45 30% 92%;
+
+    --primary: 150 30% 50%;
+    --primary-foreground: 160 35% 8%;
+
+    --secondary: 160 20% 18%;
+    --secondary-foreground: 45 30% 92%;
+
+    --muted: 160 20% 15%;
+    --muted-foreground: 150 15% 60%;
+
+    --accent: 18 50% 50%;
+    --accent-foreground: 45 30% 97%;
+
+    --gold: 42 70% 50%;
+    --gold-foreground: 160 35% 8%;
+
+    --forest: 160 40% 12%;
+    --forest-foreground: 45 30% 92%;
+
+    --cream: 45 20% 15%;
+
+    --destructive: 0 60% 45%;
+    --destructive-foreground: 45 30% 97%;
+
+    --border: 160 20% 20%;
+    --input: 160 20% 20%;
+    --ring: 150 30% 50%;
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Nunito Sans', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cormorant Garamond', serif;
+    @apply font-medium tracking-tight;
+  }
+}
+
+@layer components {
+  .parallax-container {
+    @apply relative overflow-hidden;
+    perspective: 1000px;
+  }
+
+  .parallax-layer {
+    @apply absolute inset-0 will-change-transform;
+  }
+
+  .glass-card {
+    @apply backdrop-blur-md border border-white/20;
+    background: linear-gradient(135deg, 
+      hsl(var(--card) / 80%) 0%, 
+      hsl(var(--card) / 60%) 100%);
+  }
+
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, 
+      hsl(42 75% 55%) 0%, 
+      hsl(35 70% 45%) 100%);
+  }
+
+  .text-gradient-sage {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, 
+      hsl(150 25% 32%) 0%, 
+      hsl(160 35% 22%) 100%);
+  }
+
+  .btn-primary {
+    @apply relative overflow-hidden bg-primary text-primary-foreground 
+           px-8 py-4 rounded-full font-medium tracking-wide
+           transition-all duration-500 ease-out;
+  }
+
+  .btn-primary:hover {
+    @apply shadow-elevated scale-105;
+  }
+
+  .btn-primary::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-500;
+    background: linear-gradient(135deg, 
+      hsl(42 75% 55%) 0%, 
+      hsl(35 70% 45%) 100%);
+  }
+
+  .btn-primary:hover::before {
+    @apply opacity-100;
+  }
+
+  .btn-outline {
+    @apply relative px-8 py-4 rounded-full font-medium tracking-wide
+           border-2 border-primary text-primary bg-transparent
+           transition-all duration-500 ease-out
+           hover:bg-primary hover:text-primary-foreground;
+  }
+
+  .floating {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .floating-slow {
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .rotating {
+    animation: rotate 20s linear infinite;
+  }
+
+  .pulse-glow {
+    animation: pulseGlow 3s ease-in-out infinite;
+  }
+
+  .fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .section-padding {
+    @apply py-24 md:py-32 lg:py-40;
+  }
+
+  .container-custom {
+    @apply max-w-7xl mx-auto px-6 md:px-8;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(2deg);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px hsl(42 75% 55% / 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px hsl(42 75% 55% / 0.6);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
