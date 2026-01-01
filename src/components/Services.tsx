@@ -200,7 +200,8 @@ const Services = () => {
         <div className="mb-32">
           <motion.h3
             initial={{ opacity: 0, x: -20 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
             className="text-2xl font-serif text-forest-foreground mb-12 flex items-center gap-4"
           >
             <Users className="text-gold" /> Who Can Book Our Space
@@ -209,15 +210,24 @@ const Services = () => {
             {audiences.map((aud, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                animate={isInView ? { opacity: 1, scale: 1, y: 0 } : {}}
+                initial={{ opacity: 0, scale: 0.8, y: 30 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: true }}
                 whileHover={{ y: -10, translateZ: 20, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
                 transition={{ delay: i * 0.1, type: "spring", stiffness: 200 }}
                 className="p-6 rounded-2xl bg-forest-foreground/5 border border-forest-foreground/10 backdrop-blur-sm cursor-default transition-all duration-300 preserve-3d shadow-xl"
               >
                 <motion.div
-                  animate={{ y: [0, -5, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, delay: i * 0.5 }}
+                  animate={{
+                    y: [0, -8, 0],
+                    rotate: [0, 5, -5, 0]
+                  }}
+                  transition={{
+                    duration: 5,
+                    repeat: Infinity,
+                    delay: i * 0.4,
+                    ease: "easeInOut"
+                  }}
                   className="mb-4"
                 >
                   <aud.icon className="w-8 h-8 text-gold" style={{ filter: "drop-shadow(0 5px 15px rgba(212,175,55,0.3))" }} />
@@ -231,10 +241,15 @@ const Services = () => {
 
         {/* Retreat Packages */}
         <div className="mb-32">
-          <div className="flex items-center gap-4 mb-12">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="flex items-center gap-4 mb-12"
+          >
             <Sparkles className="text-gold" />
             <h3 className="text-2xl font-serif text-forest-foreground">Retreat Packages for Yoga Instructors</h3>
-          </div>
+          </motion.div>
 
           <div className="grid lg:grid-cols-3 gap-12">
             {packages.map((pkg, index) => (
@@ -244,18 +259,24 @@ const Services = () => {
                 highlight={pkg.highlight}
               >
                 <motion.div
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: index * 0.2 }}
+                  initial={{ opacity: 0, y: 60, rotateX: 10 }}
+                  whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.2, duration: 0.8, ease: "easeOut" }}
                   className={`relative h-full rounded-3xl p-8 flex flex-col transition-all duration-500 shadow-2xl ${pkg.highlight
                     ? 'bg-gold text-gold-foreground border-2 border-white/20'
                     : 'bg-forest-foreground/10 text-forest-foreground border border-forest-foreground/10 group-hover:border-gold/30'
                     }`}
                 >
                   {pkg.highlight && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-forest text-forest-foreground text-xs font-medium tracking-wider uppercase shadow-xl" style={{ transform: "translateZ(30px)" }}>
+                    <motion.div
+                      animate={{ y: [0, -5, 0] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                      className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-forest text-forest-foreground text-xs font-medium tracking-wider uppercase shadow-xl"
+                      style={{ transform: "translateZ(30px)" }}
+                    >
                       Recommended
-                    </div>
+                    </motion.div>
                   )}
 
                   <div className="mb-8" style={{ transform: "translateZ(40px)" }}>
@@ -273,10 +294,17 @@ const Services = () => {
                       <p className={`text-xs font-bold uppercase tracking-widest mb-4 ${pkg.highlight ? 'text-forest' : 'text-gold'}`}>Includes</p>
                       <ul className="space-y-2.5">
                         {pkg.includes.map((item, i) => (
-                          <li key={i} className="flex gap-3 text-sm">
+                          <motion.li
+                            key={i}
+                            initial={{ opacity: 0, x: -10 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: (index * 0.2) + (i * 0.05) }}
+                            className="flex gap-3 text-sm"
+                          >
                             <Check size={16} className={`flex-shrink-0 mt-0.5 ${pkg.highlight ? 'text-forest' : 'text-gold'}`} />
                             <span className={pkg.highlight ? 'text-gold-foreground/90' : 'text-forest-foreground/80'}>{item}</span>
-                          </li>
+                          </motion.li>
                         ))}
                       </ul>
                     </div>
@@ -290,10 +318,17 @@ const Services = () => {
                       <p className={`text-xs font-bold uppercase tracking-widest mb-4 ${pkg.highlight ? 'text-forest' : 'text-gold'}`}>Why it's good</p>
                       <ul className="space-y-2.5">
                         {pkg.whyGood.map((item, i) => (
-                          <li key={i} className="flex gap-3 text-sm">
+                          <motion.li
+                            key={i}
+                            initial={{ opacity: 0, x: -10 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: (index * 0.2) + (i * 0.05) }}
+                            className="flex gap-3 text-sm"
+                          >
                             <Check size={16} className={`flex-shrink-0 mt-0.5 ${pkg.highlight ? 'text-forest' : 'text-gold'}`} />
                             <span className={pkg.highlight ? 'text-gold-foreground/90' : 'text-forest-foreground/80'}>{item}</span>
-                          </li>
+                          </motion.li>
                         ))}
                       </ul>
                     </div>

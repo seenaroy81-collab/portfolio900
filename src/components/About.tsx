@@ -98,8 +98,9 @@ const About = () => {
 
                     {/* Commitments Card */}
                     <motion.div
-                        initial={{ opacity: 0, x: 40 }}
-                        animate={isInView ? { opacity: 1, x: 0 } : {}}
+                        initial={{ opacity: 0, x: 40, rotateY: 10 }}
+                        animate={isInView ? { opacity: 1, x: 0, rotateY: 0 } : {}}
+                        transition={{ duration: 1.2, ease: "easeOut" }}
                         onMouseMove={handleMouseMove}
                         onMouseLeave={handleMouseLeave}
                         style={{
@@ -123,24 +124,26 @@ const About = () => {
                             {commitments.map((item, index) => (
                                 <motion.div
                                     key={index}
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                                    initial={{ opacity: 0, y: 20, x: -10 }}
+                                    animate={isInView ? { opacity: 1, y: 0, x: 0 } : {}}
                                     whileHover={{ x: 10, translateZ: 20 }}
-                                    transition={{ delay: 0.4 + index * 0.1 }}
+                                    transition={{ delay: 0.4 + index * 0.1, duration: 0.5 }}
                                     className="flex gap-5 group cursor-default preserve-3d"
                                 >
                                     <motion.div
                                         animate={{
+                                            y: [0, -5, 0],
                                             rotate: [0, index % 2 === 0 ? 5 : -5, 0],
                                         }}
                                         transition={{
                                             duration: 4,
                                             repeat: Infinity,
-                                            delay: index * 0.2
+                                            delay: index * 0.2,
+                                            ease: "easeInOut"
                                         }}
                                         className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center flex-shrink-0 transition-all group-hover:bg-primary/10 group-hover:shadow-lg shadow-sm"
                                     >
-                                        <item.icon className="w-6 h-6 text-primary" />
+                                        <item.icon className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
                                     </motion.div>
                                     <div>
                                         <h4 className="font-medium text-foreground mb-1 group-hover:text-primary transition-colors">{item.title}</h4>

@@ -1,4 +1,5 @@
 import { Heart } from 'lucide-react';
+import { motion } from 'framer-motion';
 import logo from '../assets/logo.jpg';
 
 const Footer = () => {
@@ -29,13 +30,22 @@ const Footer = () => {
       <div className="container-custom section-padding pb-10">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 mb-16">
           {/* Brand */}
-          <div className="lg:col-span-1">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="lg:col-span-1"
+          >
+            <div className="flex items-center gap-3 mb-6 group cursor-default">
+              <motion.div
+                whileHover={{ rotate: 360, scale: 1.1 }}
+                transition={{ duration: 1, ease: "easeInOut" }}
+                className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center ring-2 ring-white/10 group-hover:ring-gold/30"
+              >
                 <img src={logo} alt="Chamundi Hill Palace Logo" className="w-full h-full object-cover scale-110" />
-              </div>
+              </motion.div>
               <div>
-                <h3 className="text-lg font-serif font-semibold leading-tight text-white">
+                <h3 className="text-lg font-serif font-semibold leading-tight text-white group-hover:text-gold transition-colors">
                   Chamundi Hill Palace
                 </h3>
                 <p className="text-[10px] text-forest-foreground/60 tracking-widest uppercase">
@@ -47,64 +57,82 @@ const Footer = () => {
               Experience authentic Ayurvedic wellness and traditional yoga practices
               in the serene backwaters of Kerala. Your journey to balance begins here.
             </p>
-          </div>
+          </motion.div>
 
           {/* Explore */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
             <h4 className="text-gold font-medium mb-6 tracking-wider uppercase text-sm">
               Explore
             </h4>
             <ul className="space-y-3">
-              {footerLinks.explore.map((link) => (
+              {footerLinks.explore.map((link, idx) => (
                 <li key={link.name}>
-                  <a
+                  <motion.a
                     href={link.href}
-                    className="text-forest-foreground/70 hover:text-forest-foreground transition-colors text-sm"
+                    whileHover={{ x: 5, color: "#ffffff" }}
+                    className="text-forest-foreground/70 transition-all text-sm block"
                   >
                     {link.name}
-                  </a>
+                  </motion.a>
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
           {/* Services */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+          >
             <h4 className="text-gold font-medium mb-6 tracking-wider uppercase text-sm">
               Services
             </h4>
             <ul className="space-y-3">
               {footerLinks.services.map((link) => (
                 <li key={link.name}>
-                  <a
+                  <motion.a
                     href={link.href}
-                    className="text-forest-foreground/70 hover:text-forest-foreground transition-colors text-sm"
+                    whileHover={{ x: 5, color: "#ffffff" }}
+                    className="text-forest-foreground/70 transition-all text-sm block"
                   >
                     {link.name}
-                  </a>
+                  </motion.a>
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
           {/* Legal */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+          >
             <h4 className="text-gold font-medium mb-6 tracking-wider uppercase text-sm">
               Legal
             </h4>
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>
-                  <a
+                  <motion.a
                     href={link.href}
-                    className="text-forest-foreground/70 hover:text-forest-foreground transition-colors text-sm"
+                    whileHover={{ x: 5, color: "#ffffff" }}
+                    className="text-forest-foreground/70 transition-all text-sm block"
                   >
                     {link.name}
-                  </a>
+                  </motion.a>
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
         </div>
 
         {/* Bottom bar */}

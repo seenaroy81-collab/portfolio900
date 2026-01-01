@@ -50,6 +50,37 @@ const Hero = () => {
     }
   };
 
+  // Typewriter effect logic
+  const [displayText, setDisplayText] = useState('');
+  const [wordIndex, setWordIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const words = ['Space ', 'Sanctuary', 'Harmony', 'Practice', 'Journey'];
+  const typingSpeed = isDeleting ? 100 : 150;
+  const pauseTime = 2000;
+
+  useEffect(() => {
+    const currentWord = words[wordIndex];
+    const updateText = () => {
+      if (!isDeleting) {
+        if (displayText.length < currentWord.length) {
+          setDisplayText(currentWord.substring(0, displayText.length + 1));
+        } else {
+          setTimeout(() => setIsDeleting(true), pauseTime);
+        }
+      } else {
+        if (displayText.length > 0) {
+          setDisplayText(currentWord.substring(0, displayText.length - 1));
+        } else {
+          setIsDeleting(false);
+          setWordIndex((prev) => (prev + 1) % words.length);
+        }
+      }
+    };
+
+    const timer = setTimeout(updateText, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [displayText, isDeleting, wordIndex]);
+
   return (
     <section
       id="home"
@@ -88,20 +119,22 @@ const Hero = () => {
 
       {/* 3D Floating Elements */}
       <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden">
-        {[...Array(6)].map((_, i) => (
+        {[...Array(12)].map((_, i) => (
           <motion.div
             key={i}
             initial={{ opacity: 0, scale: 0 }}
             animate={{
-              opacity: [0, 0.2, 0],
-              scale: [0.5, 1.2, 0.5],
-              x: [0, Math.random() * 100 - 50],
-              y: [0, Math.random() * 100 - 50],
+              opacity: [0, 0.4, 0],
+              scale: [0.5, 1.5, 0.5],
+              rotate: [0, 180, 360],
+              x: [0, Math.random() * 200 - 100],
+              y: [0, Math.random() * 200 - 100],
             }}
             transition={{
-              duration: 5 + Math.random() * 5,
+              duration: 7 + Math.random() * 7,
               repeat: Infinity,
-              delay: i * 2,
+              delay: i * 1.5,
+              ease: "easeInOut"
             }}
             className="absolute hidden md:block"
             style={{
@@ -109,7 +142,10 @@ const Hero = () => {
               left: `${Math.random() * 100}%`,
             }}
           >
-            <Sparkles className="text-gold w-4 h-4" />
+            <Sparkles
+              className="text-gold w-4 h-4"
+              style={{ filter: "drop-shadow(0 0 10px rgba(212,175,55,0.5))" }}
+            />
           </motion.div>
         ))}
       </div>
@@ -140,26 +176,35 @@ const Hero = () => {
           className="text-6xl md:text-8xl lg:text-[10rem] font-serif font-medium text-white mb-10 leading-[0.9] tracking-tighter overflow-visible"
           style={{ transform: "translateZ(100px)" }}
         >
-          {["Your", "Perfect", "Yoga"].map((word, i) => (
-            <motion.span
-              key={i}
-              initial={{ y: "100%", opacity: 0, rotateX: 45 }}
-              animate={{ y: 0, opacity: 1, rotateX: 0 }}
-              transition={{ duration: 1.2, delay: 0.8 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="inline-block mr-[0.2em] origin-bottom"
+          <div className="flex flex-col md:items-center">
+            <div className="flex flex-wrap md:justify-center">
+              {["Your", "Perfect", "Yoga"].map((word, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ y: "100%", opacity: 0, rotateX: 45 }}
+                  animate={{ y: 0, opacity: 1, rotateX: 0 }}
+                  transition={{ duration: 1.2, delay: 0.8 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  className="inline-block mr-[0.2em] origin-bottom"
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8, translateZ: -50 }}
+              animate={{ opacity: 1, scale: 1, translateZ: 0 }}
+              transition={{ duration: 1.5, delay: 1.2, ease: "easeOut" }}
+              className="text-gradient-gold block mt-2 drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)] min-h-[1.2em] relative"
             >
-              {word}
-            </motion.span>
-          ))}
-          <br />
-          <motion.span
-            initial={{ opacity: 0, scale: 0.8, translateZ: -50 }}
-            animate={{ opacity: 1, scale: 1, translateZ: 0 }}
-            transition={{ duration: 1.5, delay: 1.2, ease: "easeOut" }}
-            className="text-gradient-gold block mt-2 drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]"
-          >
-            Space Awaits
-          </motion.span>
+              {displayText}
+              <motion.span
+                animate={{ opacity: [1, 0] }}
+                transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+                className="inline-block w-[4px] h-[0.8em] bg-gold ml-2 align-middle"
+              />
+            </motion.div>
+          </div>
         </h1>
 
         <motion.p

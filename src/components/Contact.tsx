@@ -110,14 +110,19 @@ const Contact = () => {
               {contactInfo.map((item, idx) => (
                 <motion.div
                   key={item.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: 0.5 + idx * 0.1 }}
+                  initial={{ opacity: 0, y: 20, x: -10 }}
+                  whileInView={{ opacity: 1, y: 0, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.5 + idx * 0.1, duration: 0.6 }}
                   className="flex items-start gap-5 group"
                 >
-                  <div className="w-14 h-14 rounded-2xl bg-secondary flex items-center justify-center flex-shrink-0 group-hover:bg-primary/10 transition-colors duration-500">
-                    <item.icon className="w-6 h-6 text-primary" />
-                  </div>
+                  <motion.div
+                    animate={{ y: [0, -5, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, delay: idx * 0.3 }}
+                    className="w-14 h-14 rounded-2xl bg-secondary flex items-center justify-center flex-shrink-0 group-hover:bg-primary/10 transition-colors duration-500"
+                  >
+                    <item.icon className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
+                  </motion.div>
                   <div>
                     <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground mb-1">{item.label}</p>
                     <p className="text-foreground font-serif text-lg leading-tight">{item.value}</p>
@@ -128,12 +133,16 @@ const Contact = () => {
 
             {/* Social Links */}
             <div className="flex gap-6 mt-12">
-              {socialLinks.map((social) => (
+              {socialLinks.map((social, idx) => (
                 <motion.a
                   key={social.label}
                   href={social.href}
-                  whileHover={{ y: -5, scale: 1.1 }}
-                  className="w-14 h-14 rounded-2xl bg-secondary flex items-center justify-center hover:bg-gold hover:text-gold-foreground transition-all duration-500 shadow-sm"
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.8 + idx * 0.1, type: "spring", stiffness: 200 }}
+                  whileHover={{ y: -8, scale: 1.1, backgroundColor: "var(--gold)", color: "var(--gold-foreground)" }}
+                  className="w-14 h-14 rounded-2xl bg-secondary flex items-center justify-center transition-all duration-300 shadow-sm"
                   aria-label={social.label}
                 >
                   <social.icon size={22} />

@@ -213,15 +213,26 @@ const Studios = () => {
 
         {/* Amenities Included Section */}
         <motion.div
-          initial={{ opacity: 0, y: 30, scale: 0.95 }}
+          initial={{ opacity: 0, y: 50, scale: 0.95 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           style={{ transformStyle: "preserve-3d" }}
           className="bg-card/50 backdrop-blur-md rounded-[2.5rem] p-10 md:p-20 border border-border/50 mb-24 shadow-elevated relative overflow-hidden"
         >
           <div className="absolute top-0 right-0 p-10 opacity-10">
-            <Sparkles size={120} className="text-gold" />
+            <motion.div
+              animate={{
+                rotate: 360,
+                scale: [1, 1.1, 1]
+              }}
+              transition={{
+                rotate: { duration: 20, repeat: Infinity, ease: "linear" },
+                scale: { duration: 5, repeat: Infinity, ease: "easeInOut" }
+              }}
+            >
+              <Sparkles size={120} className="text-gold" />
+            </motion.div>
           </div>
 
           <div className="text-center mb-16" style={{ transform: "translateZ(40px)" }}>
@@ -242,6 +253,10 @@ const Studios = () => {
             ].map((amenity, idx) => (
               <motion.div
                 key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
                 whileHover={{ y: -10, translateZ: 20 }}
                 className="flex flex-col items-center text-center group"
               >
@@ -264,8 +279,14 @@ const Studios = () => {
         >
           <div className="absolute inset-0 bg-gradient-to-br from-gold/5 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
           <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            animate={{
+              rotate: 360,
+              y: [0, -10, 0]
+            }}
+            transition={{
+              rotate: { duration: 20, repeat: Infinity, ease: "linear" },
+              y: { duration: 3, repeat: Infinity, ease: "easeInOut" }
+            }}
             className="inline-block mb-8 text-5xl grayscale opacity-30 group-hover:grayscale-0 group-hover:opacity-100 transition-all"
           >
             🌀
