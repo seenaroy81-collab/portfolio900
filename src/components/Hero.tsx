@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useMemo, useCallback } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 import { ChevronDown, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -8,9 +8,10 @@ import heroBg3 from '@/assets/hero-chatgpt-2.png';
 import heroBg4 from '@/assets/hero-chatgpt-3.png';
 import heroBg5 from '@/assets/hero_bg.png';
 
+const backgrounds = [heroBg, heroBg2, heroBg3, heroBg4, heroBg5];
+
 const Hero = () => {
   const [bgIndex, setBgIndex] = useState(0);
-  const backgrounds = [heroBg, heroBg2, heroBg3, heroBg4, heroBg5];
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -40,7 +41,7 @@ const Hero = () => {
   const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], [5, -5]);
   const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], [-5, 5]);
 
-  const handleMouseMove = (e: React.MouseEvent) => {
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
     const rect = containerRef.current?.getBoundingClientRect();
     if (rect) {
       const x = (e.clientX - rect.left) / rect.width - 0.5;
@@ -48,13 +49,13 @@ const Hero = () => {
       mouseX.set(x);
       mouseY.set(y);
     }
-  };
+  }, [mouseX, mouseY]);
 
   // Typewriter effect logic
   const [displayText, setDisplayText] = useState('');
   const [wordIndex, setWordIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const words = ['Space ', 'Sanctuary', 'Harmony', 'Practice', 'Journey'];
+  const words = useMemo(() => ['Space ', 'Sanctuary', 'Harmony', 'Practice', 'Journey'], []);
   const typingSpeed = isDeleting ? 100 : 150;
   const pauseTime = 2000;
 
@@ -79,14 +80,14 @@ const Hero = () => {
 
     const timer = setTimeout(updateText, typingSpeed);
     return () => clearTimeout(timer);
-  }, [displayText, isDeleting, wordIndex]);
+  }, [displayText, isDeleting, wordIndex, words, typingSpeed]);
 
   return (
     <section
       id="home"
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden perspective-1000"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden perspective-1000 bg-forest"
     >
       {/* Background Layer (Deeper Parallax) */}
       <motion.div
@@ -94,11 +95,12 @@ const Hero = () => {
           y: backgroundY,
           rotateX,
           rotateY,
-          scale: 1.1
+          scale: 1.1,
+          willChange: "transform"
         }}
         className="absolute inset-0 z-0"
       >
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="popLayout">
           <motion.div
             key={bgIndex}
             initial={{ opacity: 0, scale: 1.1 }}
@@ -141,6 +143,7 @@ const Hero = () => {
             style={{
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
+              willChange: "transform, opacity"
             }}
           >
             <Sparkles
@@ -158,7 +161,8 @@ const Hero = () => {
           opacity,
           rotateX: useTransform(mouseYSpring, [-0.5, 0.5], [10, -10]),
           rotateY: useTransform(mouseXSpring, [-0.5, 0.5], [-10, 10]),
-          transformStyle: "preserve-3d"
+          transformStyle: "preserve-3d",
+          willChange: "transform, opacity"
         }}
         className="relative z-20 container-custom text-left md:text-center flex flex-col items-start md:items-center"
       >
@@ -174,7 +178,7 @@ const Hero = () => {
         </motion.div>
 
         <h1
-          className="text-6xl md:text-8xl lg:text-[10rem] font-serif font-medium text-white mb-10 leading-[0.9] tracking-tighter overflow-visible"
+          className="text-5xl md:text-7xl lg:text-[7rem] font-serif font-medium text-white mb-8 leading-[1.1] tracking-tight overflow-visible"
           style={{ transform: "translateZ(100px)" }}
         >
           <div className="flex flex-col md:items-center">

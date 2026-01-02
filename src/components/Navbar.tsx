@@ -17,11 +17,11 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: "Home", href: "/#home" },
-    { name: "Studios", href: "/#studios" },
-    { name: "Services", href: "/#services" },
-    { name: "About", href: "/#about" },
-    { name: "Contact", href: "/#contact" },
+    { name: "Home", href: "/" },
+    { name: "Studios", href: "/studios" },
+    { name: "Classes", href: "/classes" },
+    { name: "About", href: "/about" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
@@ -59,9 +59,9 @@ const Navbar = () => {
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-10">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.name}
-              href={link.href}
+              to={link.href}
               className={`relative text-xs font-semibold tracking-[0.15em] uppercase transition-all duration-500 hover:opacity-100 ${isScrolled ? "text-foreground/70 hover:text-foreground" : "text-white/80 hover:text-white"
                 }`}
             >
@@ -71,7 +71,7 @@ const Navbar = () => {
                 whileHover={{ width: "100%", left: 0 }}
                 transition={{ duration: 0.3 }}
               />
-            </a>
+            </Link>
           ))}
           <Link to="/booking" className={`btn-primary text-xs px-8 py-3 font-bold tracking-widest uppercase transition-all duration-500 ${!isScrolled ? "bg-white text-primary hover:bg-gold hover:text-gold-foreground" : ""
             }`}>
@@ -101,17 +101,20 @@ const Navbar = () => {
           >
             <div className="container-custom py-6 flex flex-col gap-4">
               {navLinks.map((link, index) => (
-                <motion.a
+                <motion.div
                   key={link.name}
-                  href={link.href}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-lg font-medium text-foreground py-2 border-b border-border/50"
                 >
-                  {link.name}
-                </motion.a>
+                  <Link
+                    to={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-lg font-medium text-foreground py-2 border-b border-border/50 block"
+                  >
+                    {link.name}
+                  </Link>
+                </motion.div>
               ))}
               <Link
                 to="/booking"
