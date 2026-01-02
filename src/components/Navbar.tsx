@@ -40,7 +40,7 @@ const Navbar = () => {
           <motion.div
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="w-16 h-16 rounded-full overflow-hidden flex items-center justify-center transition-all duration-500"
+            className="w-20 h-20 rounded-full overflow-hidden flex items-center justify-center transition-all duration-500"
           >
             <img src={logo} alt="Chamundi Hill Palace Logo" className="w-full h-full object-cover scale-110" />
           </motion.div>

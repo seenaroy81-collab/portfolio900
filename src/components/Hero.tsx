@@ -114,6 +114,7 @@ const Hero = () => {
           </motion.div>
         </AnimatePresence>
         <div className="absolute inset-0 bg-gradient-to-b from-forest/60 via-forest/20 to-background" />
+        <div className="absolute inset-0 bg-black/25 z-[1]" />
         <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/felt.png')]" />
       </motion.div>
 
@@ -236,7 +237,7 @@ const Hero = () => {
             whileTap={{ scale: 0.98 }}
             className="perspective-500"
           >
-            <a href="#studios" className="btn-outline border-white/30 text-white hover:bg-white hover:text-forest text-sm font-bold tracking-[0.2em] px-10 py-5 backdrop-blur-sm block transition-all shadow-lg">
+            <a href="#studios" className="btn-outline border-white/60 text-white hover:bg-white hover:text-forest text-sm font-bold tracking-[0.2em] px-10 py-5 backdrop-blur-sm block transition-all shadow-lg bg-white/5">
               VIEW STUDIOS
             </a>
           </motion.div>
